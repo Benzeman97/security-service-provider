@@ -1,5 +1,6 @@
 package com.benz.web.config;
 
+import com.benz.web.security.AuthEntryPointJwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,9 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 	
 	  @Autowired
 	  private UserDetailsServiceImpl UserDetailsService;
+
+	  @Autowired
+      private AuthEntryPointJwt unAuthorizedHandler;
 	  	
 
 	@Override
@@ -48,7 +52,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		http.csrf().disable().exceptionHandling().and().authorizeRequests()
+		http.csrf().disable().exceptionHandling().authenticationEntryPoint(unAuthorizedHandler)
+                .and().authorizeRequests()
 		.antMatchers("/api/auth/*").permitAll().antMatchers("/api/test/*").permitAll()
 		.anyRequest().authenticated().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}

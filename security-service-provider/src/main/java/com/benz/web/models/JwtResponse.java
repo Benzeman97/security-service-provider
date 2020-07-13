@@ -10,15 +10,20 @@ import lombok.Setter;
 //AuthenticationResponse
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 public class JwtResponse {
 
 	private String token;
 	private String type="Bearer";
-	private long id;
 	private String userName;
-	private String active;
+	private boolean active;
 	private List<String> roles;
+
+	public JwtResponse(String token, String userName,boolean active, List<String> roles) {
+		this.token = token;
+		this.userName = userName;
+		this.active = active;
+		this.roles = roles;
+	}
 }
