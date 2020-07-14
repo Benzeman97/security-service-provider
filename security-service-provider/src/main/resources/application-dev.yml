@@ -12,3 +12,7 @@ spring:
     driver-class-name: "oracle.jdbc.OracleDriver"
   jpa:
     database-platform: "org.hibernate.dialect.Oracle10gDialect"
+server:  port: 9098
+  
+log:
+  rounds: 12

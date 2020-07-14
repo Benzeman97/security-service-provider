@@ -16,8 +16,8 @@ import com.benz.web.config.Schema;
 public class User {
 
 	@Id
-	@SequenceGenerator(name = "userId_SEQ",sequenceName = "userId_GEN",initialValue = 1005,allocationSize = 1)
-	@GeneratedValue(generator = "userId_SEQ",strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "userId_GEN",sequenceName = "USERID_SEQ",initialValue = 1005,allocationSize = 1)
+	@GeneratedValue(generator = "userId_GEN",strategy = GenerationType.SEQUENCE)
 	@Column(name="USERID",nullable = false)
 	private int userId;
 	
@@ -25,7 +25,7 @@ public class User {
 	@Size(max = 70)
 	private String userName;
 	
-	@Size(max = 50)
+	@Size(max = 500)
 	@Column(name = "PASSWORD",nullable=false)
 	private String password;
 	

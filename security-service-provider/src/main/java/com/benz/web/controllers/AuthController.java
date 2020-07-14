@@ -1,5 +1,23 @@
 package com.benz.web.controllers;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.benz.web.config.ERole;
 import com.benz.web.dao.RoleDAO;
 import com.benz.web.dao.UserDAO;
@@ -12,21 +30,6 @@ import com.benz.web.models.SignUpRequest;
 import com.benz.web.security.JwtUtil;
 import com.benz.web.services.UserDetailsImpl;
 import com.benz.web.services.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
@@ -47,6 +50,9 @@ public class AuthController {
 
 	 @Autowired
 	 private RoleDAO role_dao;
+	 
+	 @Value("${log.rounds}")
+	 private int logRounds;
 	
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) throws Exception
@@ -78,7 +84,7 @@ public class AuthController {
 
 		User user=new User();
 		user.setUserName(signUpRequest.getUserName());
-		user.setPassword(signUpRequest.getPassword());
+		user.setPassword(BCrypt.hashpw(signUpRequest.getPassword(),BCrypt.gensalt(logRounds)));
 		user.setActive("Y");
 
 		Set<String> strRoles=signUpRequest.getRoles();
