@@ -1,4 +1,7 @@
 
-spring:  cloud:    config:      uri: "http://localhost:8888"
+config:
+     port: 8888
+
+spring:  cloud:    config:      uri: "http://localhost:${config.port}"
   application:    name: "security-service-provider"     
        
