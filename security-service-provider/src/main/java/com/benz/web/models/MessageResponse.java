@@ -1,4 +1,4 @@
-package com.benz.web.entity;
+package com.benz.web.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,11 +7,10 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @Setter
-public class ErrorMessage {
+@Getter
+public class MessageResponse{
 
-	private int errorCode;
-	private String errorMsg;
-	private String documentation;
+    private String msg;
+
 }
