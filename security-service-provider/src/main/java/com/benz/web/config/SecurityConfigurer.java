@@ -66,6 +66,6 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 		return super.authenticationManagerBean();
 	}
 
-	
+
      
 }

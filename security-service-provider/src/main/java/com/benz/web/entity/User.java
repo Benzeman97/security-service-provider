@@ -3,24 +3,19 @@ package com.benz.web.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 import com.benz.web.config.Schema;
 
 @Entity
-@Table(name="USER56",schema = Schema.HR)
+@Table(name="USER56",schema = Schema.HR,uniqueConstraints = {
+		@UniqueConstraint(columnNames = "USERNAME")
+})
+
 public class User {
 
+	@Id
 	@SequenceGenerator(name = "userId_SEQ",sequenceName = "userId_GEN",initialValue = 1005,allocationSize = 1)
 	@GeneratedValue(generator = "userId_SEQ",strategy = GenerationType.SEQUENCE)
 	@Column(name="USERID",nullable = false)
@@ -39,7 +34,7 @@ public class User {
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name="USERROLES",
-	joinColumns = @JoinColumn(name="USERNAME"),
+	joinColumns = @JoinColumn(name="USERID"),
 	inverseJoinColumns = @JoinColumn(name="ROLEID")
 	)
 	private Set<Role> roles=new HashSet<Role>();

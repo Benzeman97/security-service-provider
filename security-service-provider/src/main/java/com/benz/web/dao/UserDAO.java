@@ -15,7 +15,7 @@ public interface UserDAO extends JpaRepository<User,String>{
 
 	Optional<User> findByUserName(String userName);
 	
-	boolean existByUserName(String userName);
+	boolean existsByUserName(String userName);
 	
 	@Query("select active from User where userName= :name")
 	String findActive(@Param("name") String userName);

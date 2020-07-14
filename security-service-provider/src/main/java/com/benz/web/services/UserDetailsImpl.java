@@ -16,6 +16,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Service
 public class UserDetailsImpl implements UserDetails{
 	
+	
+	private static final long serialVersionUID = -7047484994961557652L;
+
 	private String userName;
 	
 	@JsonIgnore
@@ -26,6 +29,10 @@ public class UserDetailsImpl implements UserDetails{
 	private List<GrantedAuthority> authorities;
 	
 	
+	public UserDetailsImpl() {
+	}
+
+
 	public UserDetailsImpl(String userName, String password,String active, List<GrantedAuthority> authorities) {
 		this.userName = userName;
 		this.password = password;

@@ -14,13 +14,9 @@ import com.benz.web.exception.DataNotFoundException;
 public class UserDetailsServiceImpl implements UserDetailsService{
 	
 	
+	@Autowired
 	private UserDAO user_dao;
 	
-	@Autowired
-    public UserDetailsServiceImpl(UserDAO use_dao) {
-		
-		this.user_dao=use_dao;
-	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -1,0 +1,14 @@
+
+secret:
+  key: "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAvH8/GgBm4YZcDmbfJiwuG5Av70bBLCN51CB1yghtbzP7NrynyM/3d2bna6QQ4uhU7MnvIqvuAnYRb52HEdZg57eLtDnook2qS8iChpkGrCQeC24sca4j+Ak1WpgEZ4EK44lnLZZFmOZ4aWJV2D9Fnw7z/7iSpJoQBXP/qGBLA5Gu7ZrI0CdC7WDOb1u/m3HDQnwiLFc2VtQS/k60LKYCxiKjgUWp/romwQTaCys2HraKFdksJ1Ho6eJaXNGtYcx5DsL16G2nZbdiVQ29UVAUl+7V7m8bVr8ZoVsMT6hDyDvyLemCK1Fg5Wxb7DRZPBMvMJW3Oly5YKD+U8Eltekpzw== rsa-key-20200713"
+jwt:
+  exp:
+    ms: 36000000
+spring:
+  datasource:
+    url: "jdbc:oracle:thin:@localhost:1521:orcl"
+    username: "HR"
+    password: "14292"
+    driver-class-name: "oracle.jdbc.OracleDriver"
+  jpa:
+    database-platform: "org.hibernate.dialect.Oracle10gDialect"
