@@ -1,6 +1,8 @@
 package com.benz.web.config;
 
 import com.benz.web.security.AuthEntryPointJwt;
+import com.benz.web.security.JwtRequestFilter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.benz.web.services.UserDetailsServiceImpl;
 
@@ -28,6 +31,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 	  @Autowired
       private AuthEntryPointJwt unAuthorizedHandler;
 	  	
+	  @Autowired
+	  private JwtRequestFilter jwtRequestFilter;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -56,6 +61,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
                 .and().authorizeRequests()
 		.antMatchers("/api/auth/*").permitAll().antMatchers("/api/test/*").permitAll()
 		.anyRequest().authenticated().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		
+		http.addFilterBefore(jwtRequestFilter,UsernamePasswordAuthenticationFilter.class);
 	}
 
 

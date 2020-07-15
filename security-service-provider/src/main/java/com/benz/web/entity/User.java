@@ -32,7 +32,7 @@ public class User {
 	@Column(name="ACTIVE",nullable=false)
 	private String active;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="USERROLES",
 	joinColumns = @JoinColumn(name="USERID"),
 	inverseJoinColumns = @JoinColumn(name="ROLEID")
