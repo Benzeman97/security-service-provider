@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.sound.midi.Soundbank;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,15 +57,19 @@ public class AuthController {
 	 @Value("${log.rounds}")
 	 private int logRounds;
 	
+	
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) throws Exception
 	{
 		try {
 			
-		 authManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(),loginRequest.getPassword()));
+		 Authentication authentication=authManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(),loginRequest.getPassword()));
 
-		 final UserDetailsImpl userDetails=(UserDetailsImpl) userDetailsService.loadUserByUsername(loginRequest.getUserName());
+		 final UserDetailsImpl userDetails=(UserDetailsImpl) authentication.getPrincipal();
+		
+		  
 		 String jwt=jwtUtil.generateToken(userDetails);
+		 
 
 		 List<String> roles=userDetails.getAuthorities().stream().map(item-> item.getAuthority())
 				 .collect(Collectors.toList());
@@ -72,7 +79,7 @@ public class AuthController {
 
 		}catch(BadCredentialsException bx)
 		{
-			throw new Exception("Email or Password in invalid");
+			return ResponseEntity.ok(new MessageResponse(bx.getMessage()));
 		}
 	}
 
