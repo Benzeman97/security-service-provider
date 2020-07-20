@@ -1,4 +1,4 @@
-package com.benz.web.models;
+package com.benz.web.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

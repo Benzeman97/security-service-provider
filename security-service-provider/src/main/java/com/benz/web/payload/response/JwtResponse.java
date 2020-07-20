@@ -1,4 +1,4 @@
-package com.benz.web.models;
+package com.benz.web.payload.response;
 
 import java.util.List;
 

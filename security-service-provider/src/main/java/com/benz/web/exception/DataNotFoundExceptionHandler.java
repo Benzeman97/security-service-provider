@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.benz.web.models.ErrorMessage;
+import com.benz.web.model.ErrorMessage;
 
 @RestControllerAdvice
 public class DataNotFoundExceptionHandler {

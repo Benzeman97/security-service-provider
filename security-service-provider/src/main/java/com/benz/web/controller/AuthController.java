@@ -1,4 +1,4 @@
-package com.benz.web.controllers;
+package com.benz.web.controller;
 
 import java.util.HashSet;
 import java.util.List;
@@ -26,10 +26,10 @@ import com.benz.web.dao.RoleDAO;
 import com.benz.web.dao.UserDAO;
 import com.benz.web.entity.Role;
 import com.benz.web.entity.User;
-import com.benz.web.models.JwtResponse;
-import com.benz.web.models.LoginRequest;
-import com.benz.web.models.MessageResponse;
-import com.benz.web.models.SignUpRequest;
+import com.benz.web.payload.request.LoginRequest;
+import com.benz.web.payload.request.SignUpRequest;
+import com.benz.web.payload.response.JwtResponse;
+import com.benz.web.payload.response.MessageResponse;
 import com.benz.web.security.JwtUtil;
 import com.benz.web.services.UserDetailsImpl;
 import com.benz.web.services.UserDetailsServiceImpl;

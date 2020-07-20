@@ -1,4 +1,4 @@
-package com.benz.web.models;
+package com.benz.web.payload.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,10 +7,10 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
 @Getter
-public class MessageResponse{
+@Setter
+public class LoginRequest {
 
-    private String msg;
-
+    private String userName;
+    private String password;
 }

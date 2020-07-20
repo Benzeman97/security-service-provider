@@ -1,4 +1,4 @@
-package com.benz.web.controllers;
+package com.benz.web.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,7 +18,7 @@ public class TestController {
     }
 
     @GetMapping("/user")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER','MODERATOR','ADMIN')")
     public String userAccess()
     {
         return "User Content";

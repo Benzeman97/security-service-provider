@@ -33,18 +33,21 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         try {
             final String authorizationHeader = request.getHeader("Authorization");
             
-
+            System.out.println(authorizationHeader);
+                        
             String jwt = null;
             String userName = null;
 
             if (authorizationHeader != null && authorizationHeader.startsWith("Benz ")) {
             	
                 jwt = authorizationHeader.substring(5);
+                
+                System.out.println(jwt);
               
                 userName = jwtUtil.extractUserName(jwt);
                 
-
                 if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                	
                     UserDetailsImpl userDetails = (UserDetailsImpl) this.userDetailsService.loadUserByUsername(userName);
 
                     
